@@ -14,7 +14,7 @@ export const getStaticPaths = async () => {
 
     return {
         paths,
-        fallback: false
+        fallback: true
     }
 }
 
@@ -33,6 +33,13 @@ export const getStaticProps = async (paths)  => {
 }
 
 const Team = ({ teamData: { teams }, teamRoster: { roster }}) => {
+
+    const router = useRouter()
+    const { id } = router.query
+
+    if (router.isFallback) {
+        return <div>Loading...</div>
+    }
 
     const [team, setTeam] = useState([])
     const [players, setPlayers] = useState([])
