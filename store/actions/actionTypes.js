@@ -1,7 +1,7 @@
 // Teams
 export const GET_TEAMS_START = 'GET_TEAMS_START';
 export const GET_TEAMS_END = 'GET_TEAMS_END';
-export const GET_TEAMS_SUCCESS = 'GET_TEAMS_SUCESS';
+export const GET_TEAMS_SUCCESS = 'GET_TEAMS_SUCCESS';
 export const GET_TEAMS_FAIL = 'GET_TEAMS_FAIL';
 // Team
 export const GET_TEAM_START = 'GET_TEAM_START';

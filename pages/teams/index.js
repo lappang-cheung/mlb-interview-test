@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 import Head from 'next/head'
 import Link from 'next/link'
@@ -29,7 +29,9 @@ const Teams = ({ getMLBTeams, teams}) => {
                    teamsData.map(team => {
                        return (
                            <li key={team.id}>
-                               {team.name}
+                               <Link href={`/teams/${team.id}`}>
+                                    {team.name}
+                               </Link>
                            </li>
                        )
                    }) 
@@ -39,16 +41,19 @@ const Teams = ({ getMLBTeams, teams}) => {
     )
 }
 
+// NextJS static props
 export const getStaticProps = wrapper.getStaticProps((store) => () => {
     store.dispatch(getMLBTeams())
 })
 
+// Dispatch props
 const mapStateToProps = ({ teams }) => {
     return {
         teams
     }
 }
 
+// Dispatch actions
 const mapDispatchToProps = (dispatch) => {
     return {
         getMLBTeams: bindActionCreators(getMLBTeams, dispatch)

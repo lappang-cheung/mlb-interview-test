@@ -1,8 +1,58 @@
 import { useState, useEffect } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import { useRouter } from 'next/router'
-import Head from 'next/head'
 
-// Pre-rendering pages
+import Head from 'next/head'
+import Link from 'next/link'
+
+import { wrapper } from '../../store/store'
+import { getMLBTeam } from '../../store/actions/teamActions'
+import { getMLBRoster } from '../../store/actions/rosterActions'
+
+
+const Team = ({ getMLBTeam, team: { team } }) => {
+
+    const router = useRouter()
+    const { id } = router.query
+
+    if (router.isFallback) {
+        return <div>Loading...</div>
+    }
+
+    const [teamData, setTeamData] = useState([])
+    // const [players, setPlayers] = useState([])
+
+    useEffect(() => {
+        getMLBTeam(id)
+        setTeamData(team[0])
+    },[null])
+
+    return (
+        <div>
+            <Head>
+                <title>{teamData.name}</title>
+                <meta name="description" 
+                      content={
+                          `Information about the MLB team, ${teamData.name}`
+                          } 
+                />
+                <link rel="icon" href={`https://www.mlbstatic.com/team-logos/${teamData.id}.svg`} />
+            </Head>
+            <h1>{teamData.name}</h1>
+            <p>Team is {teamData.name}</p>
+            <ul>
+                {/* {
+                    players.map(player => {
+                        return <li key={player.person.id}>{player.person.fullName}</li>
+                    })
+                } */}
+            </ul>
+        </div>
+    )
+}
+
+// NextJS static props
 export const getStaticPaths = async () => {
     const result = await fetch('https://statsapi.mlb.com/api/v1/teams?sportId=1')
     const MLBData = await result.json()
@@ -18,59 +68,24 @@ export const getStaticPaths = async () => {
     }
 }
 
-export const getStaticProps = async (paths)  => {
-    const resultTeam = await fetch(`https://statsapi.mlb.com/api/v1/teams/${paths.params.id}`)
-    const resultRoster = await fetch(`https://statsapi.mlb.com/api/v1/teams/${paths.params.id}/roster`)
-    const teamData = await resultTeam.json()
-    const teamRoster = await resultRoster.json()
 
+export const getStaticProps = wrapper.getStaticProps((store) => async(paths) => {
+    store.dispatch(getMLBTeam(paths))
+})
+
+// Dispatch props
+const mapStateToProps = (state) => {
     return {
-        props: {
-            teamData, 
-            teamRoster
-        }
+        team: state.team
     }
 }
 
-const Team = ({ teamData: { teams }, teamRoster: { roster }}) => {
-
-    const router = useRouter()
-    const { id } = router.query
-
-    if (router.isFallback) {
-        return <div>Loading...</div>
+// Dispatch actions
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getMLBTeam: bindActionCreators(getMLBTeam, dispatch),
+        getMLBRoster: bindActionCreators(getMLBRoster, dispatch)
     }
-
-    const [team, setTeam] = useState([])
-    const [players, setPlayers] = useState([])
-
-    useEffect(() => {
-        setTeam(teams[0])
-        setPlayers(roster)
-    },[])
-
-    return (
-        <div>
-            <Head>
-                <title>{team.name}</title>
-                <meta name="description" 
-                      content={
-                          `Information about the MLB team, ${team.name}`
-                          } 
-                />
-                <link rel="icon" href={`https://www.mlbstatic.com/team-logos/${team.id}.svg`} />
-            </Head>
-            <h1>{team.name}</h1>
-            <p>Team is {team.name}</p>
-            <ul>
-                {
-                    players.map(player => {
-                        return <li key={player.person.id}>{player.person.fullName}</li>
-                    })
-                }
-            </ul>
-        </div>
-    )
 }
 
-export default Team
+export default connect(mapStateToProps, mapDispatchToProps)(Team)

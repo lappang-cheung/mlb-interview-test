@@ -1,7 +1,7 @@
 import * as actions from '../actions/actionTypes'
 
 // Clean up messages
-export const clean = () => {
+export const cleanUp = () => {
     type: actions.CLEAN_UP
 }
 
