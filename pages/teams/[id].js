@@ -19,31 +19,49 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps = async (paths)  => {
-    const result = await fetch(`https://statsapi.mlb.com/api/v1/teams/${paths.params.id}`)
-    const teamData = await result.json()
+    const resultTeam = await fetch(`https://statsapi.mlb.com/api/v1/teams/${paths.params.id}`)
+    const resultRoster = await fetch(`https://statsapi.mlb.com/api/v1/teams/${paths.params.id}/roster`)
+    const teamData = await resultTeam.json()
+    const teamRoster = await resultRoster.json()
 
     return {
-        props: teamData
+        props: {
+            teamData, 
+            teamRoster
+        }
     }
 }
 
-const Team = ({ teams }) => {
+const Team = ({ teamData: { teams }, teamRoster: { roster }}) => {
 
-    const [teamData, setTeamData] = useState([])
+    const [team, setTeam] = useState([])
+    const [players, setPlayers] = useState([])
 
     useEffect(() => {
-        setTeamData(teams[0])
+        setTeam(teams[0])
+        setPlayers(roster)
     },[])
 
     return (
         <div>
             <Head>
-                <title>TeamID {teamData.id}</title>
-                <meta name="description" content="Some baseball team" />
-                {/* <link rel="icon" href="/favicon.ico" /> */}
+                <title>{team.name}</title>
+                <meta name="description" 
+                      content={
+                          `Information about the MLB team, ${team.name}`
+                          } 
+                />
+                <link rel="icon" href={`https://www.mlbstatic.com/team-logos/${team.id}.svg`} />
             </Head>
-            <h1>Team</h1>
-            <p>TeamID is {teamData.id}</p>
+            <h1>{team.name}</h1>
+            <p>Team is {team.name}</p>
+            <ul>
+                {
+                    players.map(player => {
+                        return <li key={player.person.id}>{player.person.fullName}</li>
+                    })
+                }
+            </ul>
         </div>
     )
 }
