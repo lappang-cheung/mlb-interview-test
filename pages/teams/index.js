@@ -1,38 +1,21 @@
 import { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
 import Head from 'next/head'
 import Link from 'next/link'
 
-// Pre-rendering pages
-export const getStaticProps = async () => {
-    const result = await fetch('https://statsapi.mlb.com/api/v1/teams?sportId=1')
-    const MLBData = await result.json()
+import { wrapper } from '../../store/store'
+import { getMLBTeams } from '../../store/actions/teamsActions'
 
-    // Redirect if cannot get MLB data
-    if (!MLBData.teams) {
-        return {
-            // notFound: true,
-            redirect: {
-                destination: '/error',
-                permanent: false
-            }
-        }
-    }
-
-    return {
-        props: {
-            MLBData
-        },
-        revalidate: 60 * 60 
-    }
-}
-
-const Teams = ({ MLBData: { teams } }) => {
+const Teams = ({ getMLBTeams, teams}) => {
 
     const [teamsData, setTeamsData] = useState([])
 
-    useEffect(() => {
-        setTeamsData(teams)
-    }, [])
+    useEffect(async () => {
+       getMLBTeams()
+       setTeamsData(teams.teams)
+    }, [null])
 
     return (
         <div>
@@ -43,19 +26,33 @@ const Teams = ({ MLBData: { teams } }) => {
             <h1>Teams</h1>
             <ul>
                 {
-                    teamsData.map(team => {
-                        return (
-                            <li key={team.id}>
-                                <Link href={`/teams/${team.id}`}>
-                                    {team.name}
-                                </Link>
-                            </li>
-                        )
-                    })
+                   teamsData.map(team => {
+                       return (
+                           <li key={team.id}>
+                               {team.name}
+                           </li>
+                       )
+                   }) 
                 }
             </ul>
         </div>
     )
 }
 
-export default Teams
+export const getStaticProps = wrapper.getStaticProps((store) => () => {
+    store.dispatch(getMLBTeams())
+})
+
+const mapStateToProps = ({ teams }) => {
+    return {
+        teams
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getMLBTeams: bindActionCreators(getMLBTeams, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Teams)
