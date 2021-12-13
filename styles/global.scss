@@ -16,3 +16,14 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.containerTeam{
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+	grid-gap: 0.5em;
+}
+
+.card{
+	height: max-content;
+  cursor: pointer;
+}
