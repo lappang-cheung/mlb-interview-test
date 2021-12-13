@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
+import Link from 'next/link'
 
 // Pre-rendering pages
 export const getStaticPaths = async () => {
@@ -65,7 +66,13 @@ const Team = ({ teamData: { teams }, teamRoster: { roster }}) => {
             <ul>
                 {
                     players.map(player => {
-                        return <li key={player.person.id}>{player.person.fullName}</li>
+                        return (
+                            <li key={player.person.id}>
+                                <Link href={`/players/${player.person.id}`}>
+                                    {player.person.fullName}
+                                </Link>
+                            </li>
+                        )
                     })
                 }
             </ul>
