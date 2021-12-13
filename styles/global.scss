@@ -17,13 +17,26 @@ a {
   box-sizing: border-box;
 }
 
-.containerTeam{
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
-	grid-gap: 0.5em;
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .card{
+  &_container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px,1fr));
+    grid-gap: 0.5em;
+  }
+  &_title {
+    display:'flex'; 
+    flex-direction: 'row'; 
+    margin: 1rem 0;
+  }
 	height: max-content;
   cursor: pointer;
+  &:hover {
+    border: 1px solid black;
+  }
 }

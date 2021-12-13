@@ -31,27 +31,37 @@ const Team = () => {
   }, [dispatch, router])
 
   return (
-    <div>
-      <h1>{state.team.team[0] && state.team.team[0].name}</h1>
-      <p>Players</p>
-      <ul>
+    <div className="content">
+      <br />
+      <div className="card_title">
+        <h1 className="title">{state.team.team[0] && state.team.team[0].name}</h1>  
+      </div>
+        
+      <div className="card_container">
         {
           state.roster.roster.map(player => {
             return (
-              <li key={player.person.id}>
-                <Link href={{
-                  pathname: '/players',
-                  query: {
-                    id: player.person.id
-                  }
-                }}>
-                  {player.person.fullName}
-                </Link>
-              </li>
+              <Link href={{ pathname: '/players', query: {id: player.person.id }}} key={player.person.id }>
+                <div className="card">
+                  <div className="card-content">
+                    <div className="media">
+                      <div className="media-left">
+                        <figure className="image is-48x48">
+                          <img src={`https://content.mlb.com/images/headshots/current/60x60/672640.png`} alt={`${player.person.fullName} image`} />
+                        </figure>
+                      </div>
+                      <div className="media-content">
+                        <p className="title is-4">{player.person.fullName}</p>
+                        <p className="subtitle is-6">@{player.person.fullName}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
             )
           })
         }
-      </ul>
+      </div>
     </div>
   )
 }

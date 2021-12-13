@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import Link from 'next/link'
 
 import { useEffect } from 'react'
@@ -16,9 +15,10 @@ const Home = () => {
   }, [dispatch])
 
   return (
-    <div>
-      <h1>MLB Teams</h1>      
-      <div className="containerTeam">
+    <div className="content">
+      <br />
+      <h1 className="title">MLB Teams</h1>      
+      <div className="card_container">
         {
           state.teams.teams.map(team => {
             return (
