@@ -16,60 +16,28 @@ const Home = () => {
   }, [dispatch])
 
   return (
-    <div style={{display:'flex'}}>
-      <h1>MLB Teams</h1>
-      <div >
-        { 
-          state.teams.teams.map(team => {
-            return (
-              <div className="card" key={team.id} style={{flex:1}}>
-                <div className="card-image">
-                  <figure className="image is-4by3">
-                    <img src={`https://www.mlbstatic.com/team-logos/${team.id}.svg`} alt={team.name} />
-                  </figure>
-                </div>
-                <div className="card-content">
-                  <div className="media">
-                    <div className="media-left">
-                      <figure className="image is-48x48">
-                        <img src={`https://www.mlbstatic.com/team-logos/${team.id}.svg`} alt={team.name} />
-                      </figure>
-                    </div>
-                    <div className="media-content">
-                      <p className="title is-4">{team.name}</p>
-                      <p className="subtitle is-6">{team.name}</p>
-                    </div>
-                  </div>
-              
-                  <div className="content">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-                  </div>
-                </div>
-              </div>
-            )
-          })
-        }
+    <div>
+      <h1>MLB Teams</h1>      
+      <div style={{display:'flex'}}>
+        <ul className="row column">
+          {
+            state.teams.teams.map(team => {
+              return (
+                <li key={team.id} className="column">
+                  <Link href={{
+                    pathname: '/team',
+                    query: {
+                      id: team.id
+                    }
+                  }}>
+                    {team.name}
+                  </Link>
+                </li>
+              )
+            })
+          }
+        </ul>
       </div>
-      
-      {/* <ul>
-        {
-          state.teams.teams.map(team => {
-            return (
-              <li key={team.id}>
-                <Link href={{
-                  pathname: '/team',
-                  query: {
-                    id: team.id
-                  }
-                }}>
-                  {team.name}
-                </Link>
-              </li>
-            )
-          })
-        }
-      </ul> */}
     </div>
   )
 }
