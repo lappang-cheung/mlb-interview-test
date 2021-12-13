@@ -52,7 +52,7 @@ const Team = () => {
                       </div>
                       <div className="media-content">
                         <p className="title is-4">{player.person.fullName}</p>
-                        <p className="subtitle is-6">@{player.person.fullName}</p>
+                        <p className="subtitle is-6">@{player.jerseyNumber}_{player.position.name}</p>
                       </div>
                     </div>
                   </div>

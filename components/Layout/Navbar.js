@@ -6,14 +6,7 @@ const Navbar = ({ router }) => {
   const {pathname, query: {id}} = router
 
   const getLogo = () => {
-    switch (pathname) {
-      case '/':
-        return `https://statsapi.mlb.com/logo.94f6aeb4.png`
-      case '/about':
-        return `https://statsapi.mlb.com/logo.94f6aeb4.png`
-      default:
-        return `https://www.mlbstatic.com/team-logos/${id}.svg`
-    }
+    return `https://statsapi.mlb.com/logo.94f6aeb4.png`
   }
 
   useEffect(() => {
