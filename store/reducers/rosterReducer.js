@@ -13,7 +13,7 @@ export default (state = initialState, { type, payload}) => {
         case actions.GET_ROSTER_SUCCESS:
             return { ...state, loading: false, error: false, roster: payload }
         case actions.GET_ROSTER_FAIL:
-            return { ...state, loading: false, error: payload }
+            return { ...state, loading: false, error: payload, roster: [] }
         case actions.GET_ROSTER_END:
             return { ...state, loading: false }
         default:
