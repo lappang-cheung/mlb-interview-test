@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
 
 import { getMLBTeam } from '../../store/actions'
 import { getMLBRoster } from '../../store/actions'
