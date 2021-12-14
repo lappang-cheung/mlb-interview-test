@@ -31,6 +31,7 @@ const Player = () => {
     <div className="content">
         <div className="columns is-centered">
           <div className="column is-6-desktop">
+          <button onClick={() => router.back()}>Back</button> 
             <section className="section">
               <span className="bd-notification is-primary has-text-centered">
                 <img src={`https://content.mlb.com/images/headshots/current/60x60/672640@8x.png`} />

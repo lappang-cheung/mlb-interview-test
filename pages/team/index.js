@@ -35,6 +35,7 @@ const Team = () => {
     <div className="content">
       <br />
       <div className="card_title">
+      <button onClick={() => router.back()}>Back</button> 
         <h1 className="title">{state.team.team[0] && state.team.team[0].name}</h1>  
       </div>
         
