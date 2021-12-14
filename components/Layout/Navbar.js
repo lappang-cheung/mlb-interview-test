@@ -16,15 +16,11 @@ const Navbar = ({ router }) => {
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
-        <a className="navbar-item" href="https://bulma.io">
-          <img src={getLogo()} width={"100%"} height={"100%"} />
-        </a>
-
-        <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
+        <Link href="/">
+          <a className="navbar-item">
+            <img src={getLogo()} width={"100%"} height={"100%"} />
+          </a>
+        </Link>
       </div>
 
       <div id="navbarBasicExample" className="navbar-menu">
