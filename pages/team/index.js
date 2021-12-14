@@ -6,6 +6,8 @@ import Link from 'next/link'
 import { getMLBTeam } from '../../store/actions'
 import { getMLBRoster } from '../../store/actions'
 
+import View from '../../components/Team/View'
+
 const Team = () => {
 
   const router = useRouter()
@@ -41,23 +43,7 @@ const Team = () => {
         {
           state.roster.roster.map(player => {
             return (
-              <Link href={{ pathname: '/players', query: {id: player.person.id }}} key={player.person.id }>
-                <div className="card">
-                  <div className="card-content">
-                    <div className="media">
-                      <div className="media-left">
-                        <figure className="image is-48x48">
-                          <img src={`https://content.mlb.com/images/headshots/current/60x60/672640.png`} alt={`${player.person.fullName} image`} />
-                        </figure>
-                      </div>
-                      <div className="media-content">
-                        <p className="title is-4">{player.person.fullName}</p>
-                        <p className="subtitle is-6">@{player.jerseyNumber}_{player.position.name}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Link>
+              <View player={player} key={player.person.id }/>
             )
           })
         }

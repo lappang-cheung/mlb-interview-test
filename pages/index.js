@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { getMLBTeams } from '../store/actions'
+import View from '../components/Teams/View'
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -22,23 +23,7 @@ const Home = () => {
         {
           state.teams.teams.map(team => {
             return (
-              <Link href={{ pathname: '/team', query: {id: team.id }}} key={team.id}>
-                <div className="card">
-                  <div className="card-content">
-                    <div className="media">
-                      <div className="media-left">
-                        <figure className="image is-48x48">
-                          <img src={`https://www.mlbstatic.com/team-logos/${team.id}.svg`} alt={`${team.name} image`} />
-                        </figure>
-                      </div>
-                      <div className="media-content">
-                        <p className="title is-4">{team.name}</p>
-                        <p className="subtitle is-6">@{team.abbreviation}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Link>
+              <View team={team} key={team.id}/>
             )
           })
         }

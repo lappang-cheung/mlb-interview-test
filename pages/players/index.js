@@ -31,15 +31,15 @@ const Player = () => {
     <div className="content">
         <div className="columns is-centered">
           <div className="column is-6-desktop">
-            <section class="section">
+            <section className="section">
               <span className="bd-notification is-primary has-text-centered">
                 <img src={`https://content.mlb.com/images/headshots/current/60x60/672640@8x.png`} />
               </span>
             </section>
           </div>
           <div className="column is-6-desktop">
-          <section class="section">
-            <h1 class="title">Information</h1>
+          <section className="section">
+            <h1 className="title">Information</h1>
             {
               state.player.player[0] && <>
                 <p className="bd-notification is-primary"><strong>Name:</strong> {state.player.player[0].fullFMLName}</p>
@@ -60,9 +60,9 @@ const Player = () => {
         </div>
         <div className="columns is-centered">
           <div className="column is-12-desktop">
-            <h1 class="title">Stats</h1>
+            <h1 className="title">Stats</h1>
 
-            <table class="table">
+            <table className="table">
               <thead>
                 <tr>
                   <th>Batting</th>
