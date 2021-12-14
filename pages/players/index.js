@@ -28,13 +28,24 @@ const Player = () => {
   }, [dispatch, router])
 
   return (
-    <div>
+    <div className="content">
       <h1>{state.player.player[0] && state.player.player[0].fullName}</h1>
-      <ul>
-        {
-          
-        }
-      </ul>
+        <div class="columns is-vcentered">
+          <div class="column is-4-desktop">
+            <p>SHOW IMAGE</p>
+            <p class="bd-notification is-primary">First column</p>
+          </div>
+          <div class="column is-8-desktop">
+            <p>SHOW BASIC STATS</p>
+            <p class="bd-notification is-primary">Second column with more content. This is so you can see the vertical alignment.</p>
+          </div>
+        </div>
+        <div className="columns is-vcentered">
+          <div class="column is-12-desktop">
+            <p>MORE STATS</p>
+            <p class="bd-notification is-primary">Second column with more content. This is so you can see the vertical alignment.</p>
+          </div>
+        </div>
     </div>
   )
 }
